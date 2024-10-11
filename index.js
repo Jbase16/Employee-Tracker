@@ -1,5 +1,5 @@
 const { Client } = require("pg");
-const inquirer = require("inquirer");
+const inquirer = require('inquirer');
 
 const client = new Client({
   user: "jphil16",
