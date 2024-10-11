@@ -101,20 +101,26 @@ async function viewAllEmployees() {
 }
 
 async function addDepartment() {
-  const { name } = await inquirer.prompt([
+  const { departmentName } = await inquirer.prompt([
     {
       type: "input",
-      name: "name",
-      message: "Enter the name of the department:",
+      name: "departmentName",
+      message: "Enter the name of the new department:",
     },
   ]);
+
+  const query = "INSERT INTO department (name) VALUES ($1)";
+  const values = [departmentName];
+
   try {
-    await client.query("INSERT INTO departments (name) VALUES ($1)", [name]);
-    console.log(`Added department: ${name}`);
+    await client.query(query, values);
+    console.log(`Department "${departmentName}" added successfully.`);
   } catch (err) {
-    console.error("Error adding department", err.stack);
+    console.error("Error adding department:", err.stack);
   }
+
 }
+
 
 async function addRole() {
   const { title, salary, department_id } = await inquirer.prompt([
